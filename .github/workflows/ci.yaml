@@ -20,8 +20,11 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build
-        run: mvn -B package
+      - name: Build and test with Maven
+        run: mvn -B clean package --file pom.xml
 
-      - name: Test
-        run: mvn -B test
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playlist-recommender-jar
+          path: target/*.jar
